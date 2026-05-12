@@ -1,1 +1,1 @@
-# TIMS_Implementaci-n-Modulo-Contabilidad
+# TIMS_Implementacion-Modulo-Contabilidad
