@@ -9,13 +9,19 @@ import org.contabilidad.model.Cuenta;
 import org.contabilidad.model.DetalleAsiento;
 import org.contabilidad.repository.AsientoRepository;
 import org.contabilidad.repository.CuentaRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Servicio encargado de gestionar la lógica de negocio
+ * relacionada con los asientos contables.
+ *
+ * Utiliza transacciones para garantizar la integridad
+ * de los datos durante operaciones de escritura.
+ *
+ */
 @Service
 @RequiredArgsConstructor
 public class AsientoService {
@@ -23,10 +29,26 @@ public class AsientoService {
     private final AsientoRepository asientoRepository;
     private final CuentaRepository cuentaRepository;
 
+    /**
+     * Obtiene todos los asientos registrados
+     * junto con sus detalles asociados.
+     *
+     * @return {@code List<Asiento>} - lista de asientos contables
+     */
     public List<Asiento> listarAsientos() {
         return this.asientoRepository.findAllConDetalles();
     }
 
+    /**
+     * Obtiene los asientos registrados dentro
+     * de un rango de fechas.
+     *
+     * @param desde fecha inicial de búsqueda
+     * @param hasta fecha final de búsqueda
+     * @return {@code List<Asiento>} - lista de asientos encontrados
+     * @throws IllegalArgumentException si la fecha
+     * inicial es mayor que la fecha final
+     */
     public List<Asiento> listarPorFecha(LocalDate desde, LocalDate hasta) {
         if(desde.isAfter(hasta))
             throw new IllegalArgumentException("La fecha de inicio no puede ser mayor a la fecha de fin");
@@ -34,6 +56,14 @@ public class AsientoService {
         return this.asientoRepository.findByFechaBetween(desde,hasta);
     }
 
+    /**
+     * Crea un nuevo asiento contable validando
+     * las reglas de negocio antes de almacenarlo.
+     *
+     * @param asientodto información del asiento a registrar
+     * @return {@code Asiento} - asiento creado y almacenado
+     * @throws IllegalArgumentException si alguna validación falla
+     */
     @Transactional
     public Asiento crearAsiento(AsientoDTO asientodto) {
         if(asientodto.getFecha() == null)
@@ -62,7 +92,7 @@ public class AsientoService {
             );
 
         Asiento asiento = new Asiento();
-        asiento.setFecha(asiento.getFecha());
+        asiento.setFecha(asientodto.getFecha());
         asiento.setDescripcion(asientodto.getDescripcion().trim());
 
         for(DetalleDTO det : asientodto.getDetalles()) {
@@ -80,10 +110,16 @@ public class AsientoService {
             det.setDebito(det.getDebito()  != null ? det.getDebito()  : BigDecimal.ZERO);
             det.setCredito(det.getCredito() != null ? det.getCredito() : BigDecimal.ZERO);
             asiento.getDetalles().add(detalle);
-;        }
+        }
         return this.asientoRepository.save(asiento);
     }
 
+    /**
+     * Elimina un asiento contable por su identificador.
+     *
+     * @param id identificador del asiento
+     * @throws IllegalArgumentException si el asiento no existe
+     */
     @Transactional
     public void eliminarAsiento(Long id) {
         if(!this.asientoRepository.existsById(id))
