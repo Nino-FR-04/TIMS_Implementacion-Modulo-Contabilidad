@@ -23,6 +23,7 @@ export default function LoginPage() {
 
     setLoading(true);
     
+    /*
     // ELIMINAR ESTO cuando uses el backend:
     // TODO: reemplazar con llamada real a tu API de autenticación
     await new Promise((r) => setTimeout(r, 1000));
@@ -36,9 +37,9 @@ export default function LoginPage() {
     }
     // FIN ELIMINAR
 
-
+*/
     //LLamada a la API
-    /*
+    
     try {
     const res = await fetch("http://localhost:8000/api/login", {
       method: "POST",
@@ -61,7 +62,7 @@ export default function LoginPage() {
       setLoading(false);
     } 
 
-    */
+    
   };
 
   return (
