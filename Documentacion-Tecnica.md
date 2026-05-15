@@ -135,6 +135,8 @@ CORS está configurado para permitir peticiones desde `localhost:5173`.
 - **JUnit 5** — pruebas unitarias de servicios
 - **Navegador** — pruebas funcionales del frontend
 
+En la carpeta **Documentacion-Codigo-Backend** se encuentra la documentacion del codigo de cada clase e interfaz. Solo se debe de abrir el archivo ´index.html´
+
 ---
 
 ## 8. Limitaciones conocidas
