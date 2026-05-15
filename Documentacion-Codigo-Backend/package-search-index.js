@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"org.contabilidad"},{"l":"org.contabilidad.config"},{"l":"org.contabilidad.controller"},{"l":"org.contabilidad.dto"},{"l":"org.contabilidad.model"},{"l":"org.contabilidad.repository"},{"l":"org.contabilidad.service"}];updateSearchResults();

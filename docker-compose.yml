@@ -1,0 +1,12 @@
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: contabilidad_db
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: contabilidad
+      MYSQL_USER: conta_user
+      MYSQL_PASSWORD: root
+
+    ports:
+      - "3310:3306"

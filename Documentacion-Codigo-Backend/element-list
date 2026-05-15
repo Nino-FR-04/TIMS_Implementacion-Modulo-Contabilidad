@@ -1,0 +1,7 @@
+org.contabilidad
+org.contabilidad.config
+org.contabilidad.controller
+org.contabilidad.dto
+org.contabilidad.model
+org.contabilidad.repository
+org.contabilidad.service
